@@ -40,6 +40,7 @@ RUN chown -R 1001:1001 /opt/app-root
 RUN chown -R 1001:1001 /var/lib/elog
 RUN mkdir /etc/logbooks
 RUN chown -R 1001:1001 /etc/logbooks
+RUN chmod -R +r /var/log
 
 # Set timezone
 RUN mv /etc/localtime /etc/localtime.old
