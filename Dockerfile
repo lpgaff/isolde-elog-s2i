@@ -17,13 +17,15 @@ LABEL io.k8s.description="Platform for building PSI elog for ISOLDE" \
 RUN yum install -y sendmail sendmail-cf
 RUN yum install -y epel-release
 RUN yum install -y emacs-nox
+RUN yum install -y nano
+RUN yum install -y rsyslog
 RUN yum install -y ghostscript
 RUN yum install -y ImageMagick
 RUN yum install -y openssl-devel
 #RUN yum -y --enablerepo=epel-testing install elog
 RUN yum install -y ckeditor
 RUN yum install -y elog-client && yum clean all -y
-RUN rpm -ivh https://kojipkgs.fedoraproject.org//packages/elog/3.1.3/2.el7/x86_64/elog-3.1.3-2.el7.x86_64.rpm
+RUN rpm -ivh https://kojipkgs.fedoraproject.org/packages/elog/3.1.4/7.20190113git283534d97d5a.fc36/x86_64/elog-3.1.4-7.20190113git283534d97d5a.fc36.x86_64.rpm
 
 # TODO (optional): Copy the builder files into /opt/app-root
 #COPY ./elog-src /opt/app-root/
