@@ -41,7 +41,7 @@ RUN chown -R 1001:1001 /var/lib/elog
 RUN mkdir /etc/logbooks
 RUN chown -R 1001:1001 /etc/logbooks
 RUN chmod -R +r /var/log
-RUN sysctl kernel.dmesg_restrict=0
+RUN echo 'kernel.dmesg_restrict=0' | tee -a /etc/sysctl.d/99-sysctl.conf
 
 # Set timezone
 RUN mv /etc/localtime /etc/localtime.old
