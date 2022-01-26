@@ -41,8 +41,7 @@ RUN chown -R 1001:1001 /var/lib/elog
 RUN mkdir /etc/logbooks
 RUN chown -R 1001:1001 /etc/logbooks
 RUN chmod -R +r /var/log
-RUN chmod -R +r /elog-nfs
-RUN chmod -R +r /elog-nfs-2
+
 
 # Set timezone
 RUN mv /etc/localtime /etc/localtime.old
