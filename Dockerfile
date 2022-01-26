@@ -1,11 +1,11 @@
-# isolde-elog-centos7
-FROM openshift/base-centos7
+# isolde-elog-centos8
+FROM centos/s2i-base-centos8
 
 # TODO: Put the maintainer name in the image metadata
 MAINTAINER Liam Gaffney <liam.gaffney@cern.ch>
 
 # TODO: Rename the builder environment variable to inform users about application you provide them
-# ENV BUILDER_VERSION 1.0
+ENV BUILDER_VERSION 2.0
 
 # TODO: Set labels used in OpenShift to describe the builder image
 LABEL io.k8s.description="Platform for building PSI elog for ISOLDE" \
@@ -14,16 +14,19 @@ LABEL io.k8s.description="Platform for building PSI elog for ISOLDE" \
       io.openshift.tags="builder,isolde-elog,elog"
 
 # TODO: Install required packages here:
-RUN yum install -y sendmail sendmail-cf
 RUN yum install -y epel-release
+RUN yum install -y sendmail sendmail-cf
+RUN yum install -y glibc
+RUN yum install -y rsyslog
+RUN yum install -y openssl-devel
 RUN yum install -y emacs-nox
+RUN yum install -y nano
 RUN yum install -y ghostscript
 RUN yum install -y ImageMagick
-RUN yum install -y openssl-devel
-#RUN yum -y --enablerepo=epel-testing install elog
 RUN yum install -y ckeditor
+RUN yum install -y elog
+#RUN rpm -ivh https://kojipkgs.fedoraproject.org/packages/elog/3.1.4/7.20190113git283534d97d5a.fc36/x86_64/elog-3.1.4-7.20190113git283534d97d5a.fc36.x86_64.rpm
 RUN yum install -y elog-client && yum clean all -y
-RUN rpm -ivh https://kojipkgs.fedoraproject.org//packages/elog/3.1.3/2.el7/x86_64/elog-3.1.3-2.el7.x86_64.rpm
 
 # TODO (optional): Copy the builder files into /opt/app-root
 #COPY ./elog-src /opt/app-root/
@@ -37,6 +40,10 @@ RUN chown -R 1001:1001 /opt/app-root
 RUN chown -R 1001:1001 /var/lib/elog
 RUN mkdir /etc/logbooks
 RUN chown -R 1001:1001 /etc/logbooks
+RUN chmod -R +r /var/log
+RUN chmod -R +r /elog-nfs
+RUN chmod -R +r /elog-nfs-2
+RUN echo 'kernel.dmesg_restrict=0' | tee -a /etc/sysctl.d/99-sysctl.conf
 
 # Set timezone
 RUN mv /etc/localtime /etc/localtime.old
