@@ -43,7 +43,6 @@ RUN chown -R 1001:1001 /etc/logbooks
 RUN chmod -R +r /var/log
 RUN chmod -R +r /elog-nfs
 RUN chmod -R +r /elog-nfs-2
-RUN echo 'kernel.dmesg_restrict=0' | tee -a /etc/sysctl.d/99-sysctl.conf
 
 # Set timezone
 RUN mv /etc/localtime /etc/localtime.old
