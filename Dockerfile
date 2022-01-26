@@ -1,5 +1,5 @@
-# isolde-elog-centos7
-FROM openshift/base-centos7
+# isolde-elog-centos8
+FROM centos/s2i-base-centos8
 
 # TODO: Put the maintainer name in the image metadata
 MAINTAINER Liam Gaffney <liam.gaffney@cern.ch>
@@ -25,7 +25,6 @@ RUN yum install -y ghostscript
 RUN yum install -y ImageMagick
 RUN yum install -y ckeditor
 RUN yum install -y elog
-#RUN rpm -ivh https://kojipkgs.fedoraproject.org/packages/elog/3.1.4/7.20190113git283534d97d5a.fc36/x86_64/elog-3.1.4-7.20190113git283534d97d5a.fc36.x86_64.rpm
 RUN yum install -y elog-client && yum clean all -y
 
 # TODO (optional): Copy the builder files into /opt/app-root
