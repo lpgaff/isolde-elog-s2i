@@ -1,6 +1,5 @@
 
-#IMAGE_NAME = isolde-elog-centos7
-IMAGE_NAME = isolde-elog-centos8
+IMAGE_NAME = isolde-elog-centos7
 
 .PHONY: build
 build:
