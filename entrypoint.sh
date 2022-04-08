@@ -8,4 +8,4 @@
 
 # Run elog, from EOS
 source /eos/home-i/isoelog/elog/smtp_passwd.sh
-elogd -p 8080 -c /eos/home-i/isoelog/elog/elogd.cfg -t ${ELOGPWD} -D
+elogd -t ${ELOGPWD} -p 8080 -c /eos/home-i/isoelog/elog/elogd.cfg
