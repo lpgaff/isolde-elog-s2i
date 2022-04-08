@@ -7,4 +7,5 @@
 #elogd -p 8080 -c /elog-nfs/elogd.cfg
 
 # Run elog, from EOS
+source /eos/home-i/isoelog/elog/smtp_passwd.sh
 elogd -p 8080 -c /eos/home-i/isoelog/elog/elogd.cfg -t ${ELOGPWD}
