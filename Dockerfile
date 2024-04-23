@@ -24,15 +24,16 @@ RUN yum install -y nano
 RUN yum install -y ghostscript
 RUN yum install -y ImageMagick
 RUN yum install -y ckeditor
-RUN yum install -y elog
-RUN yum install -y elog-client && yum clean all -y
+#RUN yum install -y elog
+#RUN yum install -y elog-client
+RUN yum clean all -y
 
-# TODO (optional): Copy the builder files into /opt/app-root
-#COPY ./elog-src /opt/app-root/
-
-# TODO: Copy the S2I scripts to /usr/libexec/s2i, since openshift/base-centos7 image
-# sets io.openshift.s2i.scripts-url label that way, or update that label
-#COPY ./s2i/bin/ /usr/libexec/s2i
+# Get the elog from Git
+RUN git clone https://bitbucket.org/ritt/elog --recursive
+RUN cd ./elog/
+RUN sed 's/USE_KRB5   = 0/USE_KRB5   = 1/g' Makefile > Makefile2;
+RUN mv Makefile2 Makefile
+RUN make install
 
 # TODO: Drop the root user and make the content of /opt/app-root owned by user 1001
 RUN chown -R 1001:1001 /opt/app-root
