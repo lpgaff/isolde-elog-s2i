@@ -30,7 +30,7 @@ RUN yum clean all -y
 
 # Get the elog from Git
 RUN git clone https://bitbucket.org/ritt/elog --recursive
-RUN cd ./elog/; sed 's/USE_KRB5   = 0/USE_KRB5   = 1/g' Makefile > Makefile2; mv Makefile2 Makefile; make install
+RUN cd ./elog/; sed 's/USE_KRB5   = 0/USE_KRB5   = 1/g' Makefile > Makefile2; sed 's/CFLAGS +=/CFLAGS += -std=c++11/g' Makefile2 > Makefile3; mv Makefile3 Makefile; make install
 
 # TODO: Drop the root user and make the content of /opt/app-root owned by user 1001
 RUN chown -R 1001:1001 /opt/app-root
