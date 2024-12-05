@@ -1,5 +1,5 @@
 # isolde-elog-sso-test
-FROM centos/s2i-base-centos8
+FROM almalinux/9-minimal
 
 # TODO: Put the maintainer name in the image metadata
 MAINTAINER Liam Gaffney <liam.gaffney@cern.ch>
@@ -14,19 +14,19 @@ LABEL io.k8s.description="Platform for building PSI elog for ISOLDE" \
       io.openshift.tags="builder,isolde-elog,elog"
 
 # TODO: Install required packages here:
-RUN yum install -y epel-release
-RUN yum install -y sendmail sendmail-cf
-RUN yum install -y glibc
-RUN yum install -y rsyslog
-RUN yum install -y openssl-devel
-RUN yum install -y emacs-nox
-RUN yum install -y nano
-RUN yum install -y ghostscript
-RUN yum install -y ImageMagick
-RUN yum install -y ckeditor
-#RUN yum install -y elog
-#RUN yum install -y elog-client
-RUN yum clean all -y
+RUN dnf install -y epel-release
+RUN dnf install -y sendmail sendmail-cf
+RUN dnf install -y glibc
+RUN dnf install -y rsyslog
+RUN dnf install -y openssl-devel
+RUN dnf install -y emacs-nox
+RUN dnf install -y nano
+RUN dnf install -y ghostscript
+RUN dnf install -y ImageMagick
+RUN dnf install -y ckeditor
+#RUN dnf install -y elog
+#RUN dnf install -y elog-client
+RUN dnf clean all -y
 
 # Get the elog from Git
 RUN git clone https://bitbucket.org/ritt/elog --recursive
@@ -48,7 +48,7 @@ RUN ln -s /usr/share/zoneinfo/Europe/Zurich /etc/localtime
 COPY ./sendmail.mc /etc/mail/sendmail.mc
 RUN cd /etc/mail/; make
 
-# This default user is created in the openshift/base-centos7 image
+# This default user is created in the image
 USER 1001
 
 # TODO: Set the default port for applications built using this image
