@@ -23,7 +23,7 @@ RUN dnf install -y emacs-nox
 RUN dnf install -y nano
 RUN dnf install -y ghostscript
 RUN dnf install -y ImageMagick
-RUN dnf install -y ckeditor
+RUN dnf install -y ckeditor5
 #RUN dnf install -y elog
 #RUN dnf install -y elog-client
 RUN dnf clean all -y
