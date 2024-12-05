@@ -16,14 +16,8 @@ LABEL io.k8s.description="Platform for building PSI elog for ISOLDE" \
 # TODO: Install required packages here:
 RUN dnf install -y epel-release
 RUN dnf install -y sendmail sendmail-cf
-RUN dnf install -y rpm-build gcc gcc-c++ git openssl-devel krb5-devel pam-devel openldap-devel csh
-RUN dnf install -y glibc
-RUN dnf install -y rsyslog
-RUN dnf install -y emacs-nox
-RUN dnf install -y nano
-RUN dnf install -y ghostscript
-RUN dnf install -y ImageMagick
-#RUN dnf install -y ckeditor4
+RUN dnf install -y rpm-build gcc gcc-c++ git openssl-devel krb5-devel pam-devel openldap-devel csh glibc rsyslog nano
+RUN dnf install -y ghostscript ImageMagick
 #RUN dnf install -y elog
 #RUN dnf install -y elog-client
 RUN dnf clean all -y
@@ -33,8 +27,8 @@ RUN git clone https://bitbucket.org/ritt/elog --recursive
 RUN cd ./elog/; sed 's/USE_KRB5   = 0/USE_KRB5   = 1/g' Makefile > Makefile2; sed 's/CFLAGS +=/CFLAGS += -std=c++11/g' Makefile2 > Makefile3; mv Makefile3 Makefile; make install
 #RUN systemctl start elogd
 
-# TODO: Drop the root user and make the content of /opt/app-root owned by user 1001
-RUN chown -R 1001:1001 /opt/app-root
+# Change some permissions
+#RUN chown -R 1001:1001 /opt/app-root
 #RUN chown -R 1001:1001 /var/lib/elog
 RUN mkdir /etc/logbooks
 RUN chown -R 1001:1001 /etc/logbooks
