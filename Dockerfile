@@ -1,4 +1,4 @@
-# isolde-elog-centos8
+# isolde-elog-sso-test
 FROM centos/s2i-base-centos8
 
 # TODO: Put the maintainer name in the image metadata
@@ -9,7 +9,7 @@ MAINTAINER Liam Gaffney <liam.gaffney@cern.ch>
 
 # TODO: Set labels used in OpenShift to describe the builder image
 LABEL io.k8s.description="Platform for building PSI elog for ISOLDE" \
-      io.k8s.display-name="isolde-elog" \
+      io.k8s.display-name="isolde-elog-sso-test" \
       io.openshift.expose-services="8080:http,9090:https" \
       io.openshift.tags="builder,isolde-elog,elog"
 
