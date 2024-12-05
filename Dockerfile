@@ -16,7 +16,7 @@ LABEL io.k8s.description="Platform for building PSI elog for ISOLDE" \
 # TODO: Install required packages here:
 RUN dnf install -y epel-release
 RUN dnf install -y sendmail sendmail-cf
-RUN dnf install -y rpm-build gcc gcc-c++ git openssl-devel krb5-devel pam-devel openldap-devel csh glibc rsyslog nano procps
+RUN dnf install -y rpm-build gcc gcc-c++ git openssl-devel krb5-devel pam-devel openldap-devel csh glibc rsyslog nano procps rsync
 RUN dnf install -y ghostscript ImageMagick
 #RUN dnf install -y elog
 #RUN dnf install -y elog-client
