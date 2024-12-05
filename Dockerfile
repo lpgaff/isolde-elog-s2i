@@ -1,5 +1,5 @@
 # isolde-elog-sso-test
-FROM almalinux/9-minimal
+FROM almalinux:latest
 
 # TODO: Put the maintainer name in the image metadata
 MAINTAINER Liam Gaffney <liam.gaffney@cern.ch>
