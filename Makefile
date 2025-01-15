@@ -1,5 +1,5 @@
 
-IMAGE_NAME = isolde-elog-centos8
+IMAGE_NAME = isolde-elog-almalinux9-with-sso
 
 .PHONY: build
 build:

@@ -1,5 +1,5 @@
-# isolde-elog-centos8
-FROM centos/s2i-base-centos8
+# isolde-elog-sso-test
+FROM almalinux:latest
 
 # TODO: Put the maintainer name in the image metadata
 MAINTAINER Liam Gaffney <liam.gaffney@cern.ch>
@@ -9,32 +9,26 @@ MAINTAINER Liam Gaffney <liam.gaffney@cern.ch>
 
 # TODO: Set labels used in OpenShift to describe the builder image
 LABEL io.k8s.description="Platform for building PSI elog for ISOLDE" \
-      io.k8s.display-name="isolde-elog" \
+      io.k8s.display-name="isolde-elog-sso-test" \
       io.openshift.expose-services="8080:http,9090:https" \
       io.openshift.tags="builder,isolde-elog,elog"
 
 # TODO: Install required packages here:
-RUN yum install -y epel-release
-RUN yum install -y sendmail sendmail-cf
-RUN yum install -y glibc
-RUN yum install -y rsyslog
-RUN yum install -y openssl-devel
-RUN yum install -y emacs-nox
-RUN yum install -y nano
-RUN yum install -y ghostscript
-RUN yum install -y ImageMagick
-RUN yum install -y ckeditor
-#RUN yum install -y elog
-#RUN yum install -y elog-client
-RUN yum clean all -y
+RUN dnf install -y epel-release
+RUN dnf install -y sendmail sendmail-cf
+RUN dnf install -y rpm-build gcc gcc-c++ git openssl-devel krb5-devel pam-devel openldap-devel csh glibc rsyslog nano procps rsync
+RUN dnf install -y ghostscript ImageMagick
+#RUN dnf install -y elog
+#RUN dnf install -y elog-client
+RUN dnf clean all -y
 
 # Get the elog from Git
 RUN git clone https://bitbucket.org/ritt/elog --recursive
 RUN cd ./elog/; sed 's/USE_KRB5   = 0/USE_KRB5   = 1/g' Makefile > Makefile2; sed 's/CFLAGS +=/CFLAGS += -std=c++11/g' Makefile2 > Makefile3; mv Makefile3 Makefile; make install
 #RUN systemctl start elogd
 
-# TODO: Drop the root user and make the content of /opt/app-root owned by user 1001
-RUN chown -R 1001:1001 /opt/app-root
+# Change some permissions
+#RUN chown -R 1001:1001 /opt/app-root
 #RUN chown -R 1001:1001 /var/lib/elog
 RUN mkdir /etc/logbooks
 RUN chown -R 1001:1001 /etc/logbooks
@@ -48,7 +42,7 @@ RUN ln -s /usr/share/zoneinfo/Europe/Zurich /etc/localtime
 COPY ./sendmail.mc /etc/mail/sendmail.mc
 RUN cd /etc/mail/; make
 
-# This default user is created in the openshift/base-centos7 image
+# This default user is created in the image
 USER 1001
 
 # TODO: Set the default port for applications built using this image

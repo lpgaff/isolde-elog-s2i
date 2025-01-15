@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Run elog, for testing
-#elogd -p 9090 -c /etc/elogd.cfg -D
+#elogd -p 8080 -c /usr/local/elog/elogd.cfg
 
 # Run elog, for real (old style)
 elogd -p 8080 -c /elog-nfs-2/elogd.cfg
